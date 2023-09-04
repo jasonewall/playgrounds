@@ -25,7 +25,8 @@ function TimeZoneSelect({ onChange, value }: {
                         {timeZone.name}
                 </option>
             ))}
-        </>)}
+            </>
+        )}
         </select>
     )
 }
