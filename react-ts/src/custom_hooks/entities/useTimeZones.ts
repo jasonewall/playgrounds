@@ -20,11 +20,11 @@ function getTimeZones(): Promise<TimeZone[]> {
         setTimeout(() => {
             resolve(timeZoneList);
             console.log("Finished fetch");
-        }, 5000);
+        }, 2000);
     });
 }
 
-function useTimeZone() {
+function useTimeZones() {
     const result = useQuery(
         'time-zone-list',
         getTimeZones,
@@ -36,4 +36,4 @@ function useTimeZone() {
     return result;
 }
 
-export default useTimeZone;
+export default useTimeZones;

@@ -1,18 +1,31 @@
-import useTimeZone from '../custom_hooks/entities/useTimeZones'
+import React from 'react';
+import useTimeZones, { TimeZone } from '../custom_hooks/entities/useTimeZones'
 
-function TimeZoneSelect() {
-    const { data, isLoading, isSuccess }= useTimeZone();
+
+
+function TimeZoneSelect({ onChange, value }: {
+    onChange: React.Dispatch<React.SetStateAction<string>>,
+    value: string,
+}) {
+    const { data, isLoading, isSuccess }= useTimeZones();
 
     return (
-        <select disabled={isLoading}>
+        <select disabled={isLoading} value={value} onChange={e => onChange(e.target.value)}>
         { isLoading && (
             <option>Loading time zones...</option>
         )}
 
-        { isSuccess &&
-        data.map(timeZone =>
-            <option value={timeZone.name}>{timeZone.name}</option>
-        )}
+        { isSuccess && (
+            <>
+            <option disabled value="">Please select time zone...</option>
+            {data?.map((timeZone, index) => (
+                <option
+                    key={index}
+                    value={timeZone.name}>
+                        {timeZone.name}
+                </option>
+            ))}
+        </>)}
         </select>
     )
 }
