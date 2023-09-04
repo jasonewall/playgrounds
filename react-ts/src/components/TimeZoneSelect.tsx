@@ -1,7 +1,5 @@
 import React from 'react';
-import useTimeZones, { TimeZone } from '../custom_hooks/entities/useTimeZones'
-
-
+import useTimeZones from '../custom_hooks/entities/useTimeZones'
 
 function TimeZoneSelect({ onChange, value }: {
     onChange: React.Dispatch<React.SetStateAction<string>>,
@@ -17,7 +15,9 @@ function TimeZoneSelect({ onChange, value }: {
 
         { isSuccess && (
             <>
+            {!value && (
             <option disabled value="">Please select time zone...</option>
+            )}
             {data?.map((timeZone, index) => (
                 <option
                     key={index}
