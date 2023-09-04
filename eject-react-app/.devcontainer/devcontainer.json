@@ -1,0 +1,4 @@
+{
+    "name": "eject-react-app",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:0-20"
+}
