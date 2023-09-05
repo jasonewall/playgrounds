@@ -1,5 +1,5 @@
 import React from 'react';
-import useTimeZones from '../custom_hooks/entities/useTimeZones'
+import useTimeZones from '@entities/useTimeZones'
 
 function TimeZoneSelect({ onChange, value }: {
     onChange: React.Dispatch<React.SetStateAction<string>>,

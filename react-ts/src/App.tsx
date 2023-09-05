@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query'
-import Menu, { MenuItem } from './components/Menu';
-import UseQueryAsStore from './demos/UseQueryAsStore';
-import ShoppingCart from './demos/ShoppingCart';
+import Menu, { MenuItem } from '@components/Menu';
+import UseQueryAsStore from '@demos/UseQueryAsStore';
+import ShoppingCart from '@demos/ShoppingCart';
 
 function App() {
   const queryClient = new QueryClient();

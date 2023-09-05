@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TimeZoneSelect from '../components/TimeZoneSelect'
+import TimeZoneSelect from '@components/TimeZoneSelect'
 
 function UseQueryAsStore() {
     const [timeZone, setTimeZone] = useState('');

@@ -1,12 +1,5 @@
 import { useQuery } from 'react-query';
-
-export class TimeZone {
-    readonly name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
+import TimeZone from '@dtos/TimeZone';
 
 function getTimeZones(): Promise<TimeZone[]> {
     const timeZoneList = [
