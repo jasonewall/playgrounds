@@ -6,13 +6,14 @@ export interface MenuItem<T> {
     value: T;
 }
 
-function Menu<T>({ onClick, items }: {
+function Menu<T>({ onClick, items, selected }: {
     onClick: React.Dispatch<React.SetStateAction<number>>,
     items: MenuItem<T>[],
+    selected: number,
 }) {
-    return <div id="menu">
+    return <div className="menu">
         {items.map((item, index) => {
-            return <button key={index} onClick={() => onClick(index)}>{item.description}</button>
+            return <button className={index === selected ? 'active' : ''} key={index} onClick={() => onClick(index)}>{item.description}</button>
         })}
     </div>;
 }
