@@ -2,13 +2,14 @@ import React from 'react';
 import useTimeZones from '@entities/useTimeZones'
 
 function TimeZoneSelect({ onChange, value }: {
-    onChange: React.Dispatch<React.SetStateAction<string>>,
-    value: string,
+    onChange?: React.Dispatch<React.SetStateAction<string>>,
+    value?: string,
 }) {
     const { data, isLoading, isSuccess }= useTimeZones();
 
     return (
-        <select disabled={isLoading} value={value} onChange={e => onChange(e.target.value)}>
+        <>
+        <select disabled={isLoading} value={value} onChange={e => onChange && onChange(e.target.value)}>
         { isLoading && (
             <option>Loading time zones...</option>
         )}
@@ -28,6 +29,8 @@ function TimeZoneSelect({ onChange, value }: {
             </>
         )}
         </select>
+
+        </>
     )
 }
 

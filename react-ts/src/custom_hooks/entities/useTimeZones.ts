@@ -18,14 +18,12 @@ function getTimeZones(): Promise<TimeZone[]> {
 }
 
 function useTimeZones() {
-    const result = useQuery(
-        'time-zone-list',
-        getTimeZones,
-        {
-            staleTime: Infinity,
-            cacheTime: Infinity,
-        }
-    );
+    const result = useQuery({
+        queryKey: 'time-zone-list',
+        queryFn: getTimeZones,
+        cacheTime: Infinity,
+        staleTime: Infinity,
+    });
     return result;
 }
 
