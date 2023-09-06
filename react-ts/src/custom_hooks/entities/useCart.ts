@@ -1,18 +1,15 @@
 import LineItem from "@dtos/LineItem";
 import Product from "@dtos/Product";
 import _ from "lodash";
-import { QueryClient, UseQueryResult, useQuery, useQueryClient } from "react-query";
+import { UseQueryResult, useQuery } from "react-query";
 
 const CartContents: LineItem[] = [];
 
 class Cart {
     query: UseQueryResult<LineItem[]>;
 
-    queryClient: QueryClient;
-
-    constructor(query: UseQueryResult<LineItem[]>, queryClient: QueryClient) {
+    constructor(query: UseQueryResult<LineItem[]>) {
         this.query = query;
-        this.queryClient = queryClient;
     }
 
     get lineItems(): LineItem[] {
@@ -33,7 +30,7 @@ class Cart {
             quantity: 1,
         })
         CartContents.push(lineItem);
-        this.queryClient.invalidateQueries({ queryKey: 'userCart' });
+        this.query.refetch();
     }
 }
 
@@ -49,7 +46,7 @@ function useCart(): Cart {
         queryFn: fetchCart,
     });
 
-    return new Cart(cartResult, useQueryClient());
+    return new Cart(cartResult);
 }
 
 
