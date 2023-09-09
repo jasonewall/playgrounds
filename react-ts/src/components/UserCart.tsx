@@ -5,7 +5,7 @@ function UserCart() {
     return <>
         <ul>
             {cart.lineItems.map(lineItem => (
-                <li>{lineItem.product.name} - {lineItem.quantity}</li>
+                <li key={lineItem.product.id}>{lineItem.product.name} - {lineItem.quantity}</li>
             ))}
         </ul>
     </>

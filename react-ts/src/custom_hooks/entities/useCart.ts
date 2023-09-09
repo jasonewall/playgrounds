@@ -3,40 +3,42 @@ import Product from "@dtos/Product";
 import _ from "lodash";
 import { UseQueryResult, useQuery } from "react-query";
 
-const CartContents: LineItem[] = [];
+type CartContents = Record<number, LineItem>;
+
+const cartContents: CartContents = {};
 
 class Cart {
-    query: UseQueryResult<LineItem[]>;
+    query: UseQueryResult<CartContents>;
 
-    constructor(query: UseQueryResult<LineItem[]>) {
+    constructor(query: UseQueryResult<CartContents>) {
         this.query = query;
     }
 
-    get lineItems(): LineItem[] {
-        return this.query.data ?? [];
+    get lineItems(): LineItem []{
+        return (this.query.data && Object.values(this.query.data)) ?? [];
     }
 
     get length(): number {
-        return this.query.data?.length ?? 0;
+        return (this.query.data && Object.keys(this.query.data).length) ?? 0;
     }
 
-    get status(): UseQueryResult<LineItem[]> {
+    get status(): UseQueryResult<CartContents> {
         return this.query;
     }
 
-    add(product: Product) {
+    add(product: Product, quantity: number) {
         const lineItem = new LineItem({
             product: product,
-            quantity: 1,
+            quantity: quantity,
         })
-        CartContents.push(lineItem);
+        cartContents[lineItem.product.id] = lineItem;
         this.query.refetch();
     }
 }
 
-function fetchCart(): Promise<LineItem[]> {
-    return new Promise<LineItem[]>((resolve) => {
-        setTimeout(_.partial(resolve, CartContents), 2000);
+function fetchCart(): Promise<Record<number, LineItem>> {
+    return new Promise<Record<number, LineItem>>((resolve) => {
+        setTimeout(_.partial(resolve, cartContents), 2000);
     });
 }
 

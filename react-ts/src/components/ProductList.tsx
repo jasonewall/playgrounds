@@ -7,7 +7,7 @@ function ProductList() {
     return  <>
         <h1 className="text-center text-4xl font-extrabold">Products</h1>
         <div className="grid grid-cols-4 gap-4">
-            {products && products.map(product => (<ProductCard product={product} />))}
+            {products && products.map(product => (<ProductCard key={product.id} product={product} />))}
         </div>
     </>
 }
