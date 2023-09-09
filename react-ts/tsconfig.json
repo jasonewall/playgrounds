@@ -5,30 +5,27 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    /* Aliases */
+    "baseUrl": "./",
     "paths": {
-      "@dtos/*": ["./src/dtos/*"],
-      "@components/*": ["./src/components/*"],
-      "@demos/*": ["./src/demos/*"],
-      "@entities/*": ["./src/custom_hooks/entities/*"],
+      "@dtos/*": ["src/dtos/*"],
+      "@components/*": ["src/components/*"],
+      "@demos/*": ["src/demos/*"],
+      "@entities/*": ["src/custom_hooks/entities/*"]
     },
+    "types": [
+      "@types/jest"
+    ]
   },
-  "include": ["src"],
-
+  "include": ["src", "tests"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

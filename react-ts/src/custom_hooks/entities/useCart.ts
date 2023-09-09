@@ -3,18 +3,18 @@ import Product from "@dtos/Product";
 import _ from "lodash";
 import { UseQueryResult, useQuery } from "react-query";
 
-type CartContents = Record<number, LineItem>;
+export type CartContents = Record<number, LineItem>;
 
 const cartContents: CartContents = {};
 
-class Cart {
+export class Cart {
     query: UseQueryResult<CartContents>;
 
     constructor(query: UseQueryResult<CartContents>) {
         this.query = query;
     }
 
-    get lineItems(): LineItem []{
+    get lineItems(): LineItem[] {
         return (this.query.data && Object.values(this.query.data)) ?? [];
     }
 
