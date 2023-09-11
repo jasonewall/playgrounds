@@ -17,16 +17,21 @@ class ShoppingCart {
         return (data && Object.values(data)) ?? [];
     }
 
-    setProductQuantity(product: Product, quantity: number) {
+    setProductQuantity(product: Product, quantity: number): Promise<LineItem> {
         const lineItem = new LineItem({
             product: product,
             quantity: quantity,
         });
 
         if (this.cartContents && this.cartContents[product.id]) {
-            return this.service.updateLineItem(lineItem);
+            if (lineItem.quantity === 0) {
+                return this.service.deleteLineItem(lineItem);
+            } else {
+                return this.service.updateLineItem(lineItem);
+            }
         }
         else {
+            if (lineItem.quantity === 0) return Promise.reject(new Error('Cannot add line item with quantity 0'));
             return this.service.addCartItem(lineItem);
         }
     }

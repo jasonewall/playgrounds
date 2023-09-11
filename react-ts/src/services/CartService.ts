@@ -9,6 +9,8 @@ export interface CartService {
 
     addCartItem(lineItem: LineItem): Promise<LineItem>;
 
+    deleteLineItem(lineItem: LineItem): Promise<LineItem>;
+
     updateLineItem(lineItem: LineItem): Promise<LineItem>;
 }
 
@@ -27,6 +29,13 @@ class CartServiceImpl implements CartService {
             this.cartContents[lineItem.product.id] = lineItem;
             setTimeout(_.partial(resolve, lineItem), 500);
         })
+    }
+
+    deleteLineItem(lineItem: LineItem): Promise<LineItem> {
+        return new Promise((resolve) => {
+            delete this.cartContents[lineItem.product.id];
+            setTimeout(_.partial(resolve, lineItem), 500);
+        });
     }
 
     updateLineItem(lineItem: LineItem): Promise<LineItem> {
