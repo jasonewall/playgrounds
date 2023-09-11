@@ -3,17 +3,17 @@ import Product from "@dtos/Product";
 import { CartService, CartContents } from "@services/CartService";
 
 class ShoppingCart {
-    data: CartContents | undefined;
+    cartContents: CartContents | undefined;
 
     service: CartService;
 
     constructor(data: CartContents | undefined, cartService: CartService) {
-        this.data = data;
+        this.cartContents = data;
         this.service = cartService;
     }
 
     get lineItems(): LineItem[] {
-        const data = this.data;
+        const data = this.cartContents;
         return (data && Object.values(data)) ?? [];
     }
 
@@ -22,7 +22,13 @@ class ShoppingCart {
             product: product,
             quantity: quantity,
         });
-        return this.service.addCartItem(lineItem);
+
+        if (this.cartContents && this.cartContents[product.id]) {
+            return this.service.updateLineItem(lineItem);
+        }
+        else {
+            return this.service.addCartItem(lineItem);
+        }
     }
 }
 

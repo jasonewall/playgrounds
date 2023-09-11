@@ -8,6 +8,8 @@ export interface CartService {
     getCartItems(): Promise<CartContents>;
 
     addCartItem(lineItem: LineItem): Promise<LineItem>;
+
+    updateLineItem(lineItem: LineItem): Promise<LineItem>;
 }
 
 class CartServiceImpl implements CartService {
@@ -25,6 +27,13 @@ class CartServiceImpl implements CartService {
             this.cartContents[lineItem.product.id] = lineItem;
             setTimeout(_.partial(resolve, lineItem), 500);
         })
+    }
+
+    updateLineItem(lineItem: LineItem): Promise<LineItem> {
+        return new Promise((resolve) => {
+            this.cartContents[lineItem.product.id] = lineItem;
+            setTimeout(_.partial(resolve, lineItem, 500));
+        });
     }
 }
 
