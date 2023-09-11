@@ -10,7 +10,7 @@ function ShoppingCart() {
     const cart = useCart();
 
     const views: MenuItem<() => JSX.Element>[] = [
-        { description: `Cart (${cart.length})`, value: UserCart },
+        { description: `Cart (${cart.lineItems.length})`, value: UserCart },
         { description: 'Products', value: ProductList }
     ]
 

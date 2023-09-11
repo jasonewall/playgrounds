@@ -13,7 +13,10 @@ function useProducts() {
         'products',
         getProducts,
     );
-    return result
+    return {
+        state: result,
+        products: result.data ?? [],
+    }
 }
 
 export default useProducts;

@@ -24,7 +24,10 @@ function useTimeZones() {
         cacheTime: Infinity,
         staleTime: Infinity,
     });
-    return result;
+    return {
+        state: result,
+        timeZones: result.data ?? [],
+    };
 }
 
 export default useTimeZones;

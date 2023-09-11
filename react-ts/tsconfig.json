@@ -17,10 +17,12 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "@dtos/*": ["src/dtos/*"],
       "@components/*": ["src/components/*"],
       "@demos/*": ["src/demos/*"],
-      "@entities/*": ["src/custom_hooks/entities/*"]
+      "@domains/*": ["src/domains/*"],
+      "@dtos/*": ["src/dtos/*"],
+      "@entities/*": ["src/custom_hooks/entities/*"],
+      "@services/*": ["src/services/*"]
     },
     "types": [
       "@types/jest"

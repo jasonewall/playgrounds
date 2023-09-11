@@ -1,10 +1,10 @@
 import useCart from "@entities/useCart";
 
 function UserCart() {
-    const cart = useCart();
+    const { lineItems } = useCart();
     return <>
         <ul>
-            {cart.lineItems.map(lineItem => (
+            {lineItems.map(lineItem => (
                 <li key={lineItem.product.id}>{lineItem.product.name} - {lineItem.quantity}</li>
             ))}
         </ul>

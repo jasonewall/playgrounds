@@ -5,7 +5,7 @@ import useTimeZones from '@entities/useTimeZones';
 function UseQueryAsStore() {
     const [timeZone, setTimeZone] = useState('');
 
-    const q = useTimeZones();
+    const { state } = useTimeZones();
 
     const stattrs = [
         'isSuccess',
@@ -28,16 +28,20 @@ function UseQueryAsStore() {
         <div>
             State:
             <table>
-                <tr>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                </tr>
-                {stattrs.map(attr => (
+                <thead>
                     <tr>
+                        <th>Attribute</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {stattrs.map(attr => (
+                    <tr key={attr}>
                         <td>{attr}</td>
-                        <td>{q[attr].toString()}</td>
+                        <td>{state[attr].toString()}</td>
                     </tr>
                 ))}
+                </tbody>
             </table>
         </div>
     </>

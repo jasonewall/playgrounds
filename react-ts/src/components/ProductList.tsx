@@ -2,12 +2,12 @@ import useProducts from "@entities/useProducts";
 import ProductCard from "./ProductCard";
 
 function ProductList() {
-    const { data: products } = useProducts();
+    const { products } = useProducts();
 
     return  <>
         <h1 className="text-center text-4xl font-extrabold">Products</h1>
         <div className="grid grid-cols-4 gap-4">
-            {products && products.map(product => (<ProductCard key={product.id} product={product} />))}
+            {products.map(product => (<ProductCard key={product.id} product={product} />))}
         </div>
     </>
 }

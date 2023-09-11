@@ -12,13 +12,13 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 function CartControls({ product }: { product: Product }) {
-    const cart = useCart();
+    const { addToCart } = useCart();
 
-    const addToCart = () => {
-        cart.add(product, 1);
+    const addToCartHandler = () => {
+        addToCart(product, 1);
     }
 
-    return (<button onClick={addToCart}>Add To Cart</button>);
+    return (<button onClick={addToCartHandler}>Add To Cart</button>);
 }
 
 export default ProductCard;

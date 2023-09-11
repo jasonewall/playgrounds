@@ -5,7 +5,8 @@ function TimeZoneSelect({ onChange, value }: {
     onChange?: React.Dispatch<React.SetStateAction<string>>,
     value?: string,
 }) {
-    const { data, isLoading, isSuccess }= useTimeZones();
+    const { state, timeZones }= useTimeZones();
+    const { isLoading, isSuccess } = state;
 
     return (
         <>
@@ -19,7 +20,7 @@ function TimeZoneSelect({ onChange, value }: {
             {!value && (
             <option disabled value="">Please select time zone...</option>
             )}
-            {data?.map((timeZone, index) => (
+            {timeZones.map((timeZone, index) => (
                 <option
                     key={index}
                     value={timeZone.name}>

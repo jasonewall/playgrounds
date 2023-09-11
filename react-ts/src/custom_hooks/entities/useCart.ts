@@ -1,55 +1,28 @@
-import LineItem from "@dtos/LineItem";
 import Product from "@dtos/Product";
-import _ from "lodash";
-import { UseQueryResult, useQuery } from "react-query";
+import { useQuery } from "react-query";
+import cartServiceKey, { CartService } from '@services/CartService';
+import ShoppingCart from "@domains/commerce/ShoppingCart";
+import serviceRegistry from "@services/registery";
 
-export type CartContents = Record<number, LineItem>;
-
-const cartContents: CartContents = {};
-
-export class Cart {
-    query: UseQueryResult<CartContents>;
-
-    constructor(query: UseQueryResult<CartContents>) {
-        this.query = query;
-    }
-
-    get lineItems(): LineItem[] {
-        return (this.query.data && Object.values(this.query.data)) ?? [];
-    }
-
-    get length(): number {
-        return (this.query.data && Object.keys(this.query.data).length) ?? 0;
-    }
-
-    get status(): UseQueryResult<CartContents> {
-        return this.query;
-    }
-
-    add(product: Product, quantity: number) {
-        const lineItem = new LineItem({
-            product: product,
-            quantity: quantity,
-        })
-        cartContents[lineItem.product.id] = lineItem;
-        this.query.refetch();
-    }
-}
-
-function fetchCart(): Promise<Record<number, LineItem>> {
-    return new Promise<Record<number, LineItem>>((resolve) => {
-        setTimeout(_.partial(resolve, cartContents), 2000);
-    });
-}
-
-function useCart(): Cart {
+function useCart() {
     const cartResult = useQuery({
         queryKey: 'userCart',
-        queryFn: fetchCart,
+        queryFn: () => { return serviceRegistry.get<CartService>(cartServiceKey).getCartItems() },
+        cacheTime: 500,
+        staleTime: 10_000,
     });
 
-    return new Cart(cartResult);
-}
+    const cart = new ShoppingCart(cartResult.data, serviceRegistry.get<CartService>(cartServiceKey));
 
+    return {
+        addToCart: async (product: Product, quantity: number) => {
+            const lineItem = await cart.add(product, quantity);
+            cartResult.refetch();
+            return lineItem;
+        },
+        lineItems: cart.lineItems,
+        state: cartResult,
+    };
+}
 
 export default useCart;
