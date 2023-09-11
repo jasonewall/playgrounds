@@ -15,7 +15,7 @@ function useCart() {
     const cart = new ShoppingCart(cartResult.data, serviceRegistry.get<CartService>(cartServiceKey));
 
     return {
-        addToCart: async (product: Product, quantity: number) => {
+        setProductQuantity: async (product: Product, quantity: number) => {
             const lineItem = await cart.setProductQuantity(product, quantity);
             cartResult.refetch();
             return lineItem;

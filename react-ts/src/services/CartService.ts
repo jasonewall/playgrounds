@@ -17,7 +17,7 @@ class CartServiceImpl implements CartService {
 
     getCartItems(): Promise<CartContents> {
         return new Promise((resolve) => {
-            console.log("fetching cart ...");
+            console.log("NETWORK: fetching cart ...");
             setTimeout(_.partial(resolve, this.cartContents), 2000);
         });
     }
@@ -31,6 +31,7 @@ class CartServiceImpl implements CartService {
 
     updateLineItem(lineItem: LineItem): Promise<LineItem> {
         return new Promise((resolve) => {
+            console.log(`NETWORK: updating line item... { quantity: ${lineItem.quantity} }`);
             this.cartContents[lineItem.product.id] = lineItem;
             setTimeout(_.partial(resolve, lineItem, 500));
         });
