@@ -10,16 +10,16 @@ describe('ShoppingCart', () => {
     const product = new Product({id: 3, name: 'Fancy Soap', price: 29.99 });
     const lineItem = new LineItem({ product: product, quantity: 3});
 
-    describe('#add', () => {
+    describe('#setProductQuantity', () => {
         it('should create a new entry if it is not yet in the cart', () => {
             const cart = new ShoppingCart({}, cartService);
-            cart.add(product, 3);
+            cart.setProductQuantity(product, 3);
             expect(cartService.addCartItem).toHaveBeenCalledWith(lineItem);
         });
 
         it('should update the existing entry if is present', () => {
             const cart = new ShoppingCart({ 3: lineItem }, cartService);
-            cart.add(product, 5);
+            cart.setProductQuantity(product, 5);
             const newLineItem = new LineItem({ product: product, quantity: 5 });
             expect(cartService.updateLineItem).toHaveBeenCalledWith(newLineItem);
         });

@@ -16,7 +16,7 @@ function useCart() {
 
     return {
         addToCart: async (product: Product, quantity: number) => {
-            const lineItem = await cart.add(product, quantity);
+            const lineItem = await cart.setProductQuantity(product, quantity);
             cartResult.refetch();
             return lineItem;
         },

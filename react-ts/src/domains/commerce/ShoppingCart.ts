@@ -17,7 +17,7 @@ class ShoppingCart {
         return (data && Object.values(data)) ?? [];
     }
 
-    add(product: Product, quantity: number) {
+    setProductQuantity(product: Product, quantity: number) {
         const lineItem = new LineItem({
             product: product,
             quantity: quantity,
