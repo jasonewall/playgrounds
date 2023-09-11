@@ -32,6 +32,7 @@ function CartControls({ lineItem, onChange }: {
 
     if (cartQuantity > 0) {
         return <div className="text-center">
+            <button className="border-2 border-slate-300" onClick={() => setQuantityHandler(0)}>D</button>
             <button className="border-2 border-slate-300" onClick={() => setQuantityHandler(cartQuantity - 1)}>-</button>
             <input className="text-center" value={cartQuantity} onChange={(e) => { setQuantityHandler(parseInt(e.target.value)); }}/>
             <button className="border-2 border-slate-300" onClick={() => setQuantityHandler(cartQuantity + 1)}>+</button>

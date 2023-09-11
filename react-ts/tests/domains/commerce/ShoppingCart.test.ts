@@ -35,11 +35,21 @@ describe('ShoppingCart', () => {
             expect(cartService.deleteLineItem).toHaveBeenCalledWith(newLineItem);
         });
 
-        it('should not insert 0 quantity line items', async () => {
+        it('should not insert invalid quantity line items', () => {
             const cart = new ShoppingCart({}, cartService);
-            const result = cart.setProductQuantity(product, 0);
+            let result = cart.setProductQuantity(product, 0);
             expect(cartService.addCartItem).not.toHaveBeenCalled();
-            expect(result).rejects.toEqual(new Error('Cannot add line item with quantity 0'));
+            expect(result).rejects.toEqual(new Error('Cannot add line item with invalid quantity'));
+
+            result = cart.setProductQuantity(product, NaN)
+            expect(cartService.addCartItem).not.toHaveBeenCalled();
+            expect(result).rejects.toEqual(new Error('Cannot add line item with invalid quantity'));
+        });
+
+        it('should delete the item if quantity is NaN', () => {
+            const cart = new ShoppingCart({ 3: lineItem }, cartService);
+            cart.setProductQuantity(product, NaN);
+            expect(cartService.deleteLineItem).toHaveBeenCalled();
         });
     });
 });

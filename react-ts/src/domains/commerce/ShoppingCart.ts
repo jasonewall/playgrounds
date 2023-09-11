@@ -24,15 +24,15 @@ class ShoppingCart {
         });
 
         if (this.cartContents && this.cartContents[product.id]) {
-            if (lineItem.quantity === 0) {
-                return this.service.deleteLineItem(lineItem);
-            } else {
+            if (lineItem.quantity > 0) {
                 return this.service.updateLineItem(lineItem);
+            } else {
+                return this.service.deleteLineItem(lineItem);
             }
         }
         else {
-            if (lineItem.quantity === 0) return Promise.reject(new Error('Cannot add line item with quantity 0'));
-            return this.service.addCartItem(lineItem);
+            if (lineItem.quantity > 0) return this.service.addCartItem(lineItem);
+            return Promise.reject(new Error('Cannot add line item with invalid quantity'));
         }
     }
 }
