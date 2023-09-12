@@ -2,6 +2,7 @@ import LineItem from "@dtos/LineItem";
 import Product from "@dtos/Product";
 import useCart from "@entities/useCart";
 import _ from "lodash";
+import LineItemControls from "./LineItemControls";
 import { useState } from "react";
 
 function ProductCard({ product }: { product: Product }) {
@@ -13,34 +14,30 @@ function ProductCard({ product }: { product: Product }) {
     return <>
         <div className="border-slate-600 border-2">
             <p className="font-bold text-center">{ product.name }</p>
-            <p className="text-end">${ product.price }</p>
-            <CartControls lineItem={lineItem} onChange={updateCartQuantity}/>
+            <p className="text-end">${product.price}</p>
+            <CartControls lineItem={lineItem} onQuantityChange={updateCartQuantity} />
         </div>
     </>
 }
 
-function CartControls({ lineItem, onChange }: {
+function CartControls({ lineItem, onQuantityChange }: {
     lineItem: LineItem,
-    onChange: (quantity: number) => void,
+    onQuantityChange: (quantity: number) => void,
 }) {
-    const setQuantityHandler = (quantity:number) => {
-        setCartQuantity(quantity);
-        onChange(quantity);
+    const [quantity, setQuantity] = useState(lineItem.quantity);
+
+    const changeQuantity = (quantity: number) => {
+        lineItem.quantity = quantity;
+        setQuantity(quantity);
+        onQuantityChange(quantity);
     }
 
-    const [cartQuantity, setCartQuantity] = useState(lineItem.quantity);
-
-    if (cartQuantity > 0) {
-        return <div className="text-center">
-            <button className="border-2 border-slate-300" onClick={() => setQuantityHandler(0)}>D</button>
-            <button className="border-2 border-slate-300" onClick={() => setQuantityHandler(cartQuantity - 1)}>-</button>
-            <input className="text-center" value={cartQuantity} onChange={(e) => { setQuantityHandler(parseInt(e.target.value)); }}/>
-            <button className="border-2 border-slate-300" onClick={() => setQuantityHandler(cartQuantity + 1)}>+</button>
-        </div>;
+    if(quantity > 0) {
+        return <LineItemControls quantity={lineItem.quantity} onQuantityChange={changeQuantity} />;
     } else {
         return <div className="text-center">
-            <button onClick={() => { setQuantityHandler(1); }}>Add To Cart</button>
-        </div>;
+            <button onClick={() => changeQuantity(1)}>Add To Cart</button>
+        </div>
     }
 }
 

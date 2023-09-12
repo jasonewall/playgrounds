@@ -5,7 +5,7 @@ function ProductList() {
     const { products } = useProducts();
 
     return  <div className="ml-20 mr-20">
-        <h1 className="text-center text-4xl font-extrabold">Products</h1>
+        <h1 className="text-center text-4xl font-extrabold mb-5">Products</h1>
         <div className="grid grid-cols-4 gap-4">
             {products.map(product => (<ProductCard key={product.id} product={product} />))}
         </div>
