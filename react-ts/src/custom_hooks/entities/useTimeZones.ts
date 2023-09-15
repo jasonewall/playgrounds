@@ -1,20 +1,10 @@
-import { useQuery } from 'react-query';
 import TimeZone from '@dtos/TimeZone';
+import timeZoneServiceKey, { TimeZoneService } from '@services/TimeZoneService';
+import serviceRegistry from '@services/registery';
+import { useQuery } from 'react-query';
 
 function getTimeZones(): Promise<TimeZone[]> {
-    const timeZoneList = [
-        'America/Edmonton',
-        'America/New_York',
-    ].map(tzName => new TimeZone(tzName));
-
-    return new Promise<TimeZone[]>(resolve => {
-        // simulate slow network traffic for loading state visibility
-        console.log("Pretending to fetch...");
-        setTimeout(() => {
-            resolve(timeZoneList);
-            console.log("Finished fetch");
-        }, 2000);
-    });
+    return serviceRegistry.get<TimeZoneService>(timeZoneServiceKey).getTimeZoneList();
 }
 
 function useTimeZones() {
