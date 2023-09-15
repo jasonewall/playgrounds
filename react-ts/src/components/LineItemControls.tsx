@@ -1,4 +1,3 @@
-
 function LineItemControls({ quantity, onQuantityChange }: {
     quantity: number,
     onQuantityChange: (quantity: number) => void,
@@ -11,4 +10,4 @@ function LineItemControls({ quantity, onQuantityChange }: {
     </div>;
 }
 
-export default LineItemControls
+export default LineItemControls;
