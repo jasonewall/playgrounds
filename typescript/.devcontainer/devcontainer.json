@@ -3,6 +3,9 @@
 {
 	"name": "typescript-playground",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-20",
+	// "build": {
+	// 	"dockerfile": "./Dockerfile"
+	// },
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
