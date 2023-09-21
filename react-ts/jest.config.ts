@@ -2,6 +2,7 @@ import { pathsToModuleNameMapper, JestConfigWithTsJest } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
 const config: JestConfigWithTsJest = {
+    testEnvironment: 'jsdom',
     preset: 'ts-jest',
     moduleDirectories: [
         'node_modules',
