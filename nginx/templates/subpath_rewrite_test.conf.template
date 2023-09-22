@@ -1,0 +1,13 @@
+server {
+    listen 3000;
+    server_name localhost3000;
+
+    rewrite_log on;
+
+    root /usr/share/nginx/html;
+
+    location ~ /some/subpath/(.*) {
+        try_files $uri $uri/ /$1 /index.html;
+        index index.html;
+    }
+}

@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+      - 3000:3000
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - ./sites:/usr/share/nginx/html
