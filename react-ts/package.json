@@ -18,7 +18,7 @@
     "react-query": "^3.39.3"
   },
   "devDependencies": {
-    "@jasonewall/promitto": "^0.1.1",
+    "@jasonewall/promitto": "^0.1.3",
     "@jest/globals": "^29.6.4",
     "@swc/core": "^1.3.83",
     "@swc/jest": "^0.2.29",
